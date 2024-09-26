@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHW Supervision Form</title>
+    <style>
+        .chw-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+        }
+        .chw-info-table td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+        .chw-info-table .label {
+            font-weight: bold;
+            width: 30%;
+        }
+        .chw-info-table .value {
+            width: 70%;
+        }
+        .chw-info-table .row {
+            display: flex;
+        }
+        .chw-info-table .cell {
+            flex: 1;
+            padding: 3px;
+        }
+    </style>
+</head>
+<body>
+    <table class="chw-info-table">
+        <tr>
+            <td class="label">
+                <div class="row">
+                    <div class="cell" id="CHW/PS_name/code">Name of CHW:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+            <td class="label">
+                <div class="row">
+                    <div class="cell" id="CHW">CHW ID:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <div class="row">
+                    <div class="cell">Supervision date:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+            <td class="label">
+                <div class="row">
+                    <div class="cell">Reporting Period:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <div class="row">
+                    <div class="cell">Name of Peer supervisor:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+            <td class="label">
+                <div class="row">
+                    <div class="cell">Name of Community:</div>
+                    <div class="cell value"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table style="vertical-align: top;">
+        <tr>
+            <td style="vertical-align: top;">
+                <table class="chw-info-table">
+                    <tr>
+                        <th colspan="5">Community morbidity cases</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>2-59 m</td>
+                        <td>5-14 yrs</td>
+                        <td>15+ years</td>
+                        <td>Referred</td>
+                    </tr>
+                    <tr>
+                        <!--& causes issues in str finding so changed to and-->
+                        <td>Fever case (suspected malaria) in HTR &amp; ETR</td>
+                        <td><div id="Fever_case_(suspected_malaria)_in_HTR_&_ETR_2-59_m"></div></td>
+                        <td><div id="Fever_case_(suspected_malaria)_in_HTR_&_ETR_5-14_yrs"></div></td>
+                        <td><div id="Fever_case_(suspected_malaria)_in_HTR_&_ETR_15+_years"></div></td>
+                        <td><div id="Fever_case_(suspected_malaria)_in_HTR_&_ETR_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Fever case tested for malaria (RDT) in HTR Positive</td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_2-59_m"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_5-14_yrs"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_15+_years"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Fever case tested for malaria (RDT) in HTR Negative</td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Negative_2-59_m"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Negative_5-14_yrs"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Negative_15+_years"></div></td>
+                        <td><div id="Fever_case_tested_for_malaria_(RDT)_in_HTR_Negative_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Malaria treated with ACT in HTR < 24hrs</td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_<_24hrs_2-59_m"></div></td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_<_24hrs_5-14_yrs"></div></td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_<_24hrs_15+_years"></div></td>
+                        <td rowspan="2"><div id="Malaria_treated_with_ACT_in_HTR_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Malaria treated with ACT in HTR > 24hrs</td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_>_24hrs_2-59_m"></div></td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_>_24hrs_5-14_yrs"></div></td>
+                        <td><div id="Malaria_treated_with_ACT_in_HTR_>_24hrs_15+_years"></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <td>Community morbidity cases</td>
+                        <td>Total</td>
+                        <td>Referred</td>
+                    </tr>
+                    <tr>
+                        <td>Child with diarrhoea treated with ORS and Zinc in HTR < 24hrs</td>
+                        <td><div id="Child_with_diarrhoea_treated_with_ORS_and_Zinc_in_HTR_<_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with diarrhoea treated with ORS and Zinc in HTR > 24hrs</td>
+                        <td><div id="Child_with_diarrhoea_treated_with_ORS_and_Zinc_in_HTR_>_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with diarrhoea treated with ORS only in HTR < 24hrs</td>
+                        <td><div id="Child_with_diarrhoea_treated_with_ORS_only_in_HTR_<_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with diarrhoea treated with ORS only in HTR > 24hrs</td>
+                        <td><div id="Child_with_diarrhoea_treated_with_ORS_only_in_HTR_>_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with bloody diarrhoea in HTR / ETR</td>
+                        <td><div id="Child_with_bloody_diarrhoea_in_HTR_/_ETR_Total"></div></td>
+                        <td><div id="Child_with_bloody_diarrhoea_in_HTR_/_ETR_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child with cough in HTR and ETR</td>
+                        <td><div id="Child_with_cough_in_HTR_and_ETR_Total"></div></td>
+                        <td><div id="Child_with_cough_in_HTR_and_ETR_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child with pneumonia in HTR and ETR</td>
+                        <td><div id="Child_with_pneumonia_in_HTR_and_ETR_Total"></div></td>
+                        <td><div id="Child_with_pneumonia_in_HTR_and_ETR_Referred"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child with pneumonia treated with antiobiotics in HTR and ETR < 24hrs</td>
+                        <td><div id="Child_with_pneumonia_treated_with_antiobiotics_in_HTR_and_ETR_<_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with pneumonia treated with antiobiotics in HTR and ETR > 24hrs</td>
+                        <td><div id="Child_with_pneumonia_treated_with_antiobiotics_in_HTR_and_ETR_>_24hrs"></div></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Child with chest indrawing in HTR and ETR</td>
+                        <td><div id="Child_with_chest_indrawing_in_HTR_and_ETR_Total"></div></td>
+                        <td><div id="Child_with_chest_indrawing_in_HTR_and_ETR_Referred"></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Malaria prevention</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>IRS Structures sprayed</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>IRS Community covered</td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>PNC Promotional Home Visit</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Postnatal care 1st promotional visit (24-48 hrs)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Postnatal care 2nd promotional visit (3-5 days)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Postnatal care 3rd promotional visit (6+ days)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Newborn referred</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Postnatal client referred</td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Tuberculosis (TB)</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>TB case under treatment in CHW area</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>TB case followed up by CHW</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>TB case - contact traced by CHW</td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </td>
+            <td style="vertical-align: top;">
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Routine HH Visits</th>
+                    </tr>
+                    <tr>
+                        <td>Routine HH Visits</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>Total HH in CHW area</td>
+                        <td><div id="Total_HH_in_CHW_area"></div></td>
+                    </tr>
+                    <tr>
+                        <td>HH routine visit in CHW area</td>
+                        <td><div id="HH_routine_visit_in_CHW_area"></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Inclusion of MNCH/EPI for CHWs</th>
+                    </tr>
+                    <tr>
+                        <td>Inclusion of MNCH/EPI for CHWs</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>Defaulter identified and linked to CHW</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>PHU list of child defaulters given go CHW/PS</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 0-15 months defaulter on scheduled EPI</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 0-15 months defaulter traced by CHW/PS</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 0-15 months defaulter traced & referred by CHW/PS</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>HH MNCH visit with EPI counselling session</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>HH MNCH visit with nutrition counselling session</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Facility outreach EPI activity supported by CHW</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Facility outreach other activity supported by CHW</td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Child 6-59 months Screening for Malnutrition</th>
+                    </tr>
+                    <tr>
+                        <td>Malnutrition Screening</td>
+                        <td>Total</td>
+                        <td>Referred</td>
+                    </tr>
+                    <tr>
+                        <td>Child assessed with MUAC red</td>
+                        <td><div></div></td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child assessed with MUAC yellow</td>
+                        <td><div></div></td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child assessed with MUAC green</td>
+                        <td><div></div></td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child malnutrition follow up visit</td>
+                        <td><div></div></td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>HIV/ART</th>
+                    </tr>
+                    <tr>
+                        <td>HIV/ART</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>ART defaulter and Lost to Follow-up traced</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>ART defaulter and Lost to Follow-up returned to care</td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Non-Communicable Diseases</th>
+                    </tr>
+                    <tr>
+                        <td>Non-Communicable Diseases</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>Suspected defaulter NCD case referred</td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+
+            </td>
+            <td style="vertical-align: top;">
+                <table class="chw-info-table">
+                    <tr>
+                        <th>ANC  Home Visits</th>
+                    </tr>
+                    <tr>
+                        <td>ANC  Home Visits</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>ANC 1st promo visit</td>
+                        <td><div id="ANC_1st_promo_visit"></div></td>
+                    </tr>
+                    <tr>
+                        <td>ANC 2nd promo visit</td>
+                        <td><div id="ANC_2nd_promo_visit"></div></td>
+                    </tr>
+                    <tr>
+                        <td>ANC 3rd promo visit</td>
+                        <td><div id="ANC_3rd_promo_visit"></div></td>
+                    </tr>
+                    <tr>
+                        <td>ANC 4th promo visit</td>
+                        <td><div id="ANC_4th_promo_visit"></div></td>
+                    </tr>
+                    <tr>
+                        <td>ANC 5th promo visit</td>
+                        <td id="ANC_5th_promo_visit"></td>
+                    </tr>
+                    <tr>
+                        <td>ANC 6th promo visit</td>
+                        <td id="ANC_6th_promo_visit"></td>
+                    </tr>
+                    <tr>
+                        <td>ANC client referred</td>
+                        <td id="ANC_client_referred"></td>
+                    </tr>
+                    <tr>
+                        <td>Mother delivered in facility</td>
+                        <td id="Mother_delivered_in_facility"></td>
+                    </tr>
+                    <tr>
+                        <td>ANC IPTp 1st dose in Community</td>
+                        <td id="ANC_IPTp_1st_dose_in_Community"></td>
+                    </tr>
+                    <tr>
+                        <td>ANC IPTp 2nd dose in Community</td>
+                        <td id="ANC_IPTp_2nd_dose_in_Community"></td>
+                    </tr>
+                    <tr>
+                        <td>ANC IPTp 3rd dose in Community</td>
+                        <td id="ANC_IPTp_3rd_dose_in_Community"></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Community Surveillance</th>
+                    </tr>
+                    <tr>
+                        <td>Community Surveillance</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>Death in Community</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Deaths clustered</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Death 0-28 days</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Death 1-59 months</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Maternal death</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Death Ebola survivor</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Neonatal tetanus suspected</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Polio suspected</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Measles suspected</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Cholera suspected</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Yellow eyes with fever</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Delivery in community</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Live birth in community</td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align: top;">
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Essential Commodities for CBS</th>
+                    </tr>
+                    <tr>
+                        <td>Commodity Type</td>
+                        <td>Stock at start mm</td>
+                        <td>Stock received mm</td>
+                        <td>Stock used mm</td>
+                        <td>Stock at end mm</td>
+                    </tr>
+                    <tr>
+                        <td>Malaria RDT</td>
+                        <td><div id="Malaria_RDT_Stock_at_start_mm"></div></td>
+                        <td><div id="Malaria_RDT_Stock_received_mm"></div></td>
+                        <td><div id="Malaria_RDT_Stock_used_mm"></div></td>
+                        <td><div id="Malaria_RDT_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>AL6</td>
+                        <td><div id="AL6_Stock_at_start_mm"></div></td>
+                        <td><div id="AL6_Stock_received_mm"></div></td>
+                        <td><div id="AL6_Stock_used_mm"></div></td>
+                        <td><div id="AL6_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>AL12</td>
+                        <td><div id="AL12_Stock_at_start_mm"></div></td>
+                        <td><div id="AL12_Stock_received_mm"></div></td>
+                        <td><div id="AL12_Stock_used_mm"></div></td>
+                        <td><div id="AL12_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>AL18</td>
+                        <td><div id="AL18_Stock_at_start_mm"></div></td>
+                        <td><div id="AL18_Stock_received_mm"></div></td>
+                        <td><div id="AL18_Stock_used_mm"></div></td>
+                        <td><div id="AL18_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>AL24</td>
+                        <td><div id="AL24_Stock_at_start_mm"></div></td>
+                        <td><div id="AL24_Stock_received_mm"></div></td>
+                        <td><div id="AL24_Stock_used_mm"></div></td>
+                        <td><div id="AL24_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Zinc 20mg tabs</td>
+                        <td><div id="Zinc_20mg_tabs_Stock_at_start_mm"></div></td>
+                        <td><div id="Zinc_20mg_tabs_Stock_received_mm"></div></td>
+                        <td><div id="Zinc_20mg_tabs_Stock_used_mm"></div></td>
+                        <td><div id="Zinc_20mg_tabs_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>ORS 1 litre sachet</td>
+                        <td><div id="ORS_1_litre_sachet_Stock_at_start_mm"></div></td>
+                        <td><div id="ORS_1_litre_sachet_Stock_received_mm"></div></td>
+                        <td><div id="ORS_1_litre_sachet_Stock_used_mm"></div></td>
+                        <td><div id="ORS_1_litre_sachet_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Amoxicillin dispersable 250mg tabs</td>
+                        <td><div id="Amoxicillin_dispersable_250mg_tabs_Stock_at_start_mm"></div></td>
+                        <td><div id="Amoxicillin_dispersable_250mg_tabs_Stock_received_mm"></div></td>
+                        <td><div id="Amoxicillin_dispersable_250mg_tabs_Stock_used_mm"></div></td>
+                        <td><div id="Amoxicillin_dispersable_250mg_tabs_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Sulfadoxine Pyrimethamine</td>
+                        <td><div id="Sulfadoxine_Pyrimethamine_250mg_tabs_Stock_at_start_mm"></div></td>
+                        <td><div id="Sulfadoxine_Pyrimethamine_250mg_tabs_Stock_received_mm"></div></td>
+                        <td><div id="Sulfadoxine_Pyrimethamine_250mg_tabs_Stock_used_mm"></div></td>
+                        <td><div id="Sulfadoxine_Pyrimethamine_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Oral contraceptive pills</td>
+                        <td><div id="Oral_contraceptive_pills_tabs_Stock_at_start_mm"></div></td>
+                        <td><div id="Oral_contraceptive_pills_Stock_received_mm"></div></td>
+                        <td><div id="Oral_contraceptive_pills_Stock_used_mm"></div></td>
+                        <td><div id="Oral_contraceptive_pills_Stock_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Male condoms</td>
+                        <td><div id="Male_condoms_Stock_at_start_mm"></div></td>
+                        <td><div id="Male_condoms_Stock_received_mm"></div></td>
+                        <td><div id="Male_condoms_Stock_used_mm"></div></td>
+                        <td><div id="Male_condoms_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Vitamin A 100,000IU (Red)</td>
+                        <td><div id="Vitamin_A_100,000IU_(Red)_Stock_at_start_mm"></div></td>
+                        <td><div id="Vitamin_A_100,000IU_(Red)_Stock_received_mm"></div></td>
+                        <td><div id="Vitamin_A_100,000IU_(Red)_Stock_used_mm"></div></td>
+                        <td><div id="Vitamin_A_100,000IU_(Red)_Stock_at_end_mm"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Vitamin A 200,000IU (Blue)</td>
+                        <td><div id="Vitamin_A_200,000IU_(Blue)_Stock_at_start_mm"></div></td>
+                        <td><div id="Vitamin_A_200,000IU_(Blue)_Stock_received_mm"></div></td>
+                        <td><div id="Vitamin_A_200,000IU_(Blue)_Stock_used_mm"></div></td>
+                        <td><div id="Vitamin_A_200,000IU_(Blue)_Stock_at_end_mm"></div></td>
+                    </tr>
+                </table>
+
+                <table class="chw-info-table">
+                    <tr>
+                        <th>Young Child Visit by CHWs</th>
+                    </tr>
+                    <tr>
+                        <td>Young Child Visit by CHWs</td>
+                        <td>Total</td>
+                    </tr>
+                    <tr>
+                        <td>Child 1 months visit (postnatal)</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 2-59 months visit</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 9 months visit</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 15 months visit</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child referred to facility</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 6-11 months received Vit A RED supplement in HTR</td>
+                        <td><div></div></td>
+                    </tr>
+                    <tr>
+                        <td>Child 12-59 months received Vit A BLUE supplement in HTR</td>
+                        <td><div></div></td>
+                    </tr>
+                </table>
+
+                <table>
+                    <tr>
+                        <th>Peer Supervisor (PS) Reporting</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="chw-info-table">
+                                <tr>
+                                    <td>CHW Supervision by PS</td>
+                                    <td>Total</td>
+                                </tr>
+                                <tr>
+                                    <td>CHW supervistion visit by PS</td>
+                                    <td><div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>CHW meeting facilitated by PS</td>
+                                    <td><div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>Monthly meeting report submitted by PS</td>
+                                    <td><div></div></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="chw-info-table">
+                                <tr>
+                                    <td>CHW in ETR area who reported</td>
+                                    <td>Total</td>
+                                </tr>
+                                <tr>
+                                    <td>CHW in ETR area who reported</td>
+                                    <td><div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>CHW in HTR area who reported</td>
+                                    <td><div></div></td>
+                                </tr>
+                                <tr>
+                                    <td>CHW who permanently left the programme</td>
+                                    <td><div></div></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <table>
+        <tr>
+            <td><a href="https://docs.google.com/forms/d/e/1FAIpQLScDoGYQdPUfcDGfsqooUnryqyVHKj6fpGIxEGBnCTOFrKEfvg/viewform?usp=sf_link">CASE REVIEW FORM</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.google.com/forms/d/e/1FAIpQLScw0d-0_aReG_8P6JiPaWe0EPYjqSpDN2XWIWgFH50Rjr1N-w/viewform?usp=sf_link">DIRECT OBSERVATION FORM</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.google.com/forms/d/e/1FAIpQLSf_x-aTlGrALSV54dQ0W0fdUtPZYPjuKctSz92nTF2UDtK4Ug/viewform?usp=sf_link">ANNUAL INDIVIDUAL PERFORMANCE APPRAISAL OF CHWS</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.google.com/forms/d/e/1FAIpQLSf-F0XoarMvSpcpoodjH90NgOYymZXtPyP3wgOMwP1BxNP08g/viewform?usp=sf_link"> PERFORMANCE AUDIT FORM</a></td>
+        </tr>
+    </table>
+</body>
+</html>
