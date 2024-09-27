@@ -155,8 +155,6 @@ class Chc:
             for chw in self.chw_list:
                 row = []
 
-                print(rr_summary_df.columns)
-
                 for column in rr_summary_df.columns:
                     indicator_df = chw.get_indicator(column)
 
