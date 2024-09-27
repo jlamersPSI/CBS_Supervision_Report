@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>CBS Report</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td#limited-width {
+            width: 50%;
+            max-width: 50%;
+        }
+  </style>
 </head>
 <body>
     <h1>CBS Report</h1>
@@ -11,96 +33,45 @@
         <tr>
             <td>
                 <div>
-                    <img id="reporting-plot" src="" alt="">
+                    <img id="reporting-plot" src="" alt="" width="100%">
                 </div>
             </td>
             <td>
-                <div id="chc-indicator-sum">
-                </div>
+                <table>
+                    <tr>
+                        <th colspan="2">Executive Summary</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><div>The following contains information to aid Peer Supervisors (PS) in the supportive supervision of Community Health Workers (CHW)</div></td>
+                    </tr>
+                    <tr>
+                        <td>District:</td>
+                        <td><div id="District"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Chiefdom:</td>
+                        <td><div id="Chiefdom"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Number of CHW's:</td>
+                        <td><div id="Number_of_CHWs"></div></td>
+                    </tr>
+                    <tr>
+                        <td><div id="Number_of_CHW's_Passing_Data_Validation_Checks_title">Number of CHW's Passing Data Validation Checks for:</div></td>
+                        <td><div id="Number_of_CHW's_Passing_Data_Validation_Checks"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Average Number of Households Registered in CHW Areas:</td>
+                        <td><div id="Average_Number_of_Households_Registered_in_CHW_Areas"></div></td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
 
     <table>
         <tr>
-            <th>CHW</th>
-            <th>CHW Name/Code</th>
-            <th>REPORTING RATE</th>
-            <th>REPORTING RATE ON TIME</th>
-            <th>ACTUAL REPORTS</th>
-            <th>ACTUAL REPORTS ON TIME</th>
-            <th>EXPECTED REPORTS</th>
-            <th>Data Quality Score</th>
-        </tr>
-        <tr>
-            <td>CHW04</td>
-            <td>issa mansaray</td>
-            <td>100</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="green">10</td>
-        </tr>
-        <tr>
-            <td>CHW01</td>
-            <td>001</td>
-            <td>100</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="green">10</td>
-        </tr>
-        <tr>
-            <td>CHW02</td>
-            <td>nan</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="green">10</td>
-        </tr>
-        <tr>
-            <td>CHW05</td>
-            <td>nan</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="yellow">6</td>
-        </tr>
-        <tr>
-            <td>CHW07</td>
-            <td>nan</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="yellow">6</td>
-        </tr>
-        <tr>
-            <td>CHW03</td>
-            <td>nan</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="yellow">6</td>
-        </tr>
-        <tr>
-            <td>CHW06</td>
-            <td>nan</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>1</td>
-            <td class="red">2</td>
+            <th id="Most_recent_reporting_period_rr_data">Reporting Rate Data For</th>
         </tr>
     </table>
 

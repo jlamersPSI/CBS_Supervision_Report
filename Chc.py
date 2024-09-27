@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+
+from numpy.ma.extras import average
+
 import Chw  # Assuming this is a custom module
 
 def get_dict_of_chws(chc_name: str) -> list:
@@ -65,7 +68,7 @@ class Chc:
 
         # Initialize DataFrame for reporting rates
         rr_df = pd.DataFrame(index=datetime_index, columns=["Actual_Reports", "Actual_Reports_On_Time", "Expected_Reports"])
-        rr_df = rr_df.fillna(0)
+        rr_df[["Actual_Reports", "Actual_Reports_On_Time", "Expected_Reports"]] = 0
 
         # Aggregate data from all CHWs
         for chw in self.chw_list:
@@ -105,6 +108,51 @@ class Chc:
 
         return soup
 
+    def gen_excutive_summary(self, soup):
+
+        element = soup.find('div',id='District')
+        if element:
+            element.string = self.chw_list[0].get_indicator('District')['District'].unique()[0]
+        else:
+            print('Element for District not found in gen_excutive_summary()')
+
+        element = soup.find('div', id='Chiefdom')
+        if element:
+            element.string = self.chw_list[0].get_indicator('Chiefdom')['Chiefdom'].unique()[0]
+        else:
+            print('Element for Chiefdom not found in gen_excutive_summary()')
+
+        element = soup.find('div', id='Number_of_CHWs')
+        if element:
+            element.string = str(len(self.chw_list))
+        else:
+            print('Element for Number of CHWs not found in gen_excutive_summary()')
+
+        element = soup.find('div', id="Number_of_CHW's_Passing_Data_Validation_Checks_title")
+        if element:
+            element.string = element.string.replace(':', f" {self.chw_list[0].get_indicator('District').index[-1].strftime('%B')}:")
+        else:
+            print('Element for Number of CHWs not found in gen_excutive_summary()')
+
+        element = soup.find('div', id='Average_Number_of_Households_Registered_in_CHW_Areas')
+        if element:
+            HH_list = []
+
+            for chw in self.chw_list:
+                HH_df = chw.get_indicator('Total_HH_in_CHW_area')
+                HH_list.append(HH_df.loc[HH_df.index[-1],'Total_HH_in_CHW_area'])
+
+            HH_list = np.array(HH_list)
+
+            element.string = str(np.round(np.nanmean(HH_list),0))
+        else:
+            print('Element for Number of CHWs not found in gen_excutive_summary()')
+
+        return soup
+
+    def gen_rr_data_table(self, soup):
+        return soup
+
     def gen_chc_summary(self):
         """
         Generates a summary HTML for the CHC.
@@ -116,6 +164,9 @@ class Chc:
             soup = BeautifulSoup(f, "lxml")
 
         soup = self.gen_chc_rr_plot(soup)
+        soup = self.gen_excutive_summary(soup)
+        soup = self.gen_rr_data_table(soup)
+
         return str(soup)
 
     def __str__(self):

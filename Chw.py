@@ -75,6 +75,11 @@ class Chw:
         df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
         return df
 
+    def get_indicator(self, indicator):
+        df = pd.DataFrame(self.chw_data[indicator])
+        df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
+        return df
+
     def __str__(self):
         """
         Returns a string representation of the CHW object.
