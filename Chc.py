@@ -5,8 +5,6 @@ import numpy as np
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
-from numpy.ma.extras import average
-
 import Chw  # Assuming this is a custom module
 
 def get_dict_of_chws(chc_name: str) -> list:
@@ -147,6 +145,33 @@ class Chc:
             element.string = str(np.round(np.nanmean(HH_list),0))
         else:
             print('Element for Number of CHWs not found in gen_excutive_summary()')
+
+        element = soup.find('h3', id='Most_recent_reporting_period_rr_data')
+        if element:
+            element.string = element.string.replace('for',f"for {self.chw_list[0].get_indicator('District').index[-1].strftime('%B')}")
+
+            rr_summary_df = pd.DataFrame(columns=["CHW","CHW/PS_name/code","ACTUAL_REPORTS", "ACTUAL_REPORTS_ON_TIME", "EXPECTED_REPORTS", "REPORTING_RATE","REPORTING_RATE_ON_TIME"])
+
+            for chw in self.chw_list:
+                row = []
+
+                print(rr_summary_df.columns)
+
+                for column in rr_summary_df.columns:
+                    indicator_df = chw.get_indicator(column)
+
+                    if not indicator_df.empty:
+                        row.append(indicator_df.iloc[-1][column])
+                    else:
+                        row.append(None)
+
+                rr_summary_df.loc[len(rr_summary_df)] = row
+
+            # Convert DataFrame to HTML and insert after the element
+            html_table = rr_summary_df.to_html(index=False, classes='table table-striped')
+            element.insert_after(BeautifulSoup(html_table, 'html.parser'))
+        else:
+            print('Element for Executive summary not found in gen_excutive_summary()')
 
         return soup
 
