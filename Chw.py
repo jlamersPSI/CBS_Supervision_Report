@@ -1,5 +1,6 @@
 import pandas as pd  # Import the Pandas library for data manipulation
 import json  # Import the JSON library for working with JSON data
+import ValidationCheck
 
 from bs4 import BeautifulSoup  # Import the Beautiful Soup library for HTML parsing
 
@@ -31,6 +32,9 @@ class Chw:
         # Load the CHW's data into a Pandas DataFrame
         self.chw_data = pd.DataFrame(cbs_data_all_chws[self.organisation_unit]["data"])
 
+        self.validation_check = ValidationCheck.ValidationCheck(self.chw_data)
+
+
     def gen_monthly_summary_table(self) -> str:
         """
         Generates a monthly summary table for the CHW.
@@ -52,7 +56,7 @@ class Chw:
             element = soup.find('div', id=indicator)
 
             if element:
-                # Replace the text content of the element with the new value
+                element.parent['style'] = f"background-color: {self.validation_check.get_val_check_result_colors_df()[f"{indicator}_Validation_Check"][self.validation_check.get_val_check_result_colors_df().index[-1]]};"
                 element.string = f"{element.text.strip()} {self.chw_data.loc[self.chw_data.index[-1], indicator]}"
             else:
                 print(f"Element with ID '{indicator}' not found.")
@@ -79,6 +83,9 @@ class Chw:
         df = pd.DataFrame(self.chw_data[indicator])
         df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
         return df
+
+    def get_val_check(self):
+        return self.validation_check.get_val_check_one()
 
     def __str__(self):
         """

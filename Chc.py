@@ -160,10 +160,13 @@ class Chc:
 
                     if not indicator_df.empty:
                         row.append(indicator_df.iloc[-1][column])
+
                     else:
                         row.append(None)
 
                 rr_summary_df.loc[len(rr_summary_df)] = row
+
+            rr_summary_df["CHW"] = [CHW.replace(f'{self.chc_name} - ', '') for CHW in rr_summary_df["CHW"]]
 
             # Convert DataFrame to HTML and insert after the element
             html_table = rr_summary_df.to_html(index=False, classes='table table-striped')
