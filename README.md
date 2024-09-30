@@ -49,11 +49,11 @@ After reports are generated as PDFs, they are delivered to PSs via WhatsApp mess
 
 [^2]: Lassi, Z. S.; Bhutta, Z. A. Community‐based Intervention Packages for Reducing Maternal and Neonatal Morbidity and Mortality and Improving Neonatal Outcomes. Cochrane Database of Systematic Reviews 2015, 2015 (3). https://doi.org/10.1002/14651858.cd007754.pub3.
 
-[^3] Lewin, S.; Munabi‐Babigumira, S.; Glenton, C.; Daniels, K.; Bosch‐Capblanch, X.; Wyk, B. E. van; Odgaard‐Jensen, J.; Johansen, M.; Aja, G. N.; Zwarenstein, M.; Scheel, I. B. Lay Health Workers in Primary and Community Health Care for Maternal and Child Health and the Management of Infectious Diseases. Cochrane Database of Systematic Reviews 2010, No. 3. https://doi.org/10.1002/14651858.cd004015.pub3.
+[^3]: Lewin, S.; Munabi‐Babigumira, S.; Glenton, C.; Daniels, K.; Bosch‐Capblanch, X.; Wyk, B. E. van; Odgaard‐Jensen, J.; Johansen, M.; Aja, G. N.; Zwarenstein, M.; Scheel, I. B. Lay Health Workers in Primary and Community Health Care for Maternal and Child Health and the Management of Infectious Diseases. Cochrane Database of Systematic Reviews 2010, No. 3. https://doi.org/10.1002/14651858.cd004015.pub3.
 
-[^4] Okwundu, C. I.; Nagpal, S.; Musekiwa, A.; Sinclair, D. Home‐ or Community‐based Programmes for Treating Malaria. Cochrane Database of Systematic Reviews 2013, No. 5. https://doi.org/10.1002/14651858.cd009527.pub2.
+[^4]: Okwundu, C. I.; Nagpal, S.; Musekiwa, A.; Sinclair, D. Home‐ or Community‐based Programmes for Treating Malaria. Cochrane Database of Systematic Reviews 2013, No. 5. https://doi.org/10.1002/14651858.cd009527.pub2.
 
-[^5] Whidden, C.; Kayentao, K.; Liu, J. X.; Lee, S.; Keita, Y.; Diakité, D.; Keita, A.; Diarra, S.; Edwards, J.; Yembrick, A.; Holeman, I.; Samaké, S.; Plea, B.; Coumaré, M.; Johnson, A. D. Improving Community Health Worker Performance by Using a Personalised Feedback Dashboard for Supervision: A Randomised Controlled Trial. J Glob Health 8 (2), 020418. https://doi.org/10.7189/jogh.08.020418.
+[^5]: Whidden, C.; Kayentao, K.; Liu, J. X.; Lee, S.; Keita, Y.; Diakité, D.; Keita, A.; Diarra, S.; Edwards, J.; Yembrick, A.; Holeman, I.; Samaké, S.; Plea, B.; Coumaré, M.; Johnson, A. D. Improving Community Health Worker Performance by Using a Personalised Feedback Dashboard for Supervision: A Randomised Controlled Trial. J Glob Health 8 (2), 020418. https://doi.org/10.7189/jogh.08.020418.
 
 [^6]: Dhis2.Py: Python Wrapper for DHIS2. https://github.com/davidhuser/dhis2.py (accessed 2024-09-30).
 
