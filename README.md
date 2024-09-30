@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Sierra Leone has had Community Health Workers (CHWs) in various forms since 2012.[^1] These programs are designed to expand access to health care and reduce maternal, newborn, and child morbidity and mortality. Similar programs have proved effective in achieving these aims in other low- and middle-income countries.[^2,^3,^4]
+Sierra Leone has had Community Health Workers (CHWs) in various forms since 2012.[^1] These programs are designed to expand access to health care and reduce maternal, newborn, and child morbidity and mortality. Similar programs have proved effective in achieving these aims in other low- and middle-income countries.[^2][^3][^4]
 
 Peer Supervisors (PS) were formally introduced in 2016 with the goal of improving data collection and reporting.[^1] Their role also focuses on coaching, mentorship, and on-the-job training of the CHWs within their catchment area.[^1]
 
@@ -12,11 +12,17 @@ The aim of this project is to offer resources in the form of data quality analys
 
 Data is first scraped from DHIS2 using the dhis2.py package.[^6] CHW-level data from the monthly summary HF04 is collected for the last 12 months, along with organizational hierarchy and HF04 reporting rate indicators.
 
+### Figure 1: Project Flowchart
+
 ![Figure 1](./Resources/Screenshot%202024-09-27%20121323.png "Figure 1: Data Pipeline for Project")
 
-Reports are then compiled locally in Python with a front page displaying clinic summaries of HF04 data and CHW performance. Each CHW then has a page displaying the results of data validation tests.
+Reports are then compiled locally in Python visualized in figure 1. A front page displaying clinic summaries of HF04 data and CHW performance is generated based on the CHC name (Fig 2.). Each CHW then has a page displaying the results of data validation tests run on their monthly HF04 data (Fig 3.).
+
+### Figure 2: CHC Summary Page
 
 ![Figure 2](./Resources/Front_Page.jpg "Figure 2: CHC Summary Page")
+
+### Figure 3: CHW Summary Page
 
 ![Figure 3](./Resources/CHW_Page.jpg "Figure 3: CHW Summary Page")
 
