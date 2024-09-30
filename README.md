@@ -24,15 +24,15 @@ After reports are generated as PDFs, they are delivered to PSs via WhatsApp mess
 
 ## Project Roadmap
 
-### v0.2 (Complete)
+### v0.3 (Complete)
 - Generate report with monthly indicators
 - Create clinic summary front page
 
-### v0.3 (In Progress)
+### v0.4 (In Progress)
 - Run validation checks and display results on CHW monthly summary
 - Complete README
 
-### v0.4 (Planned)
+### v0.5 (Planned)
 - Create basic WhatsApp delivery system
 - Add data download and update script
 - Add tests for validation checks and data download
