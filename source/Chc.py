@@ -21,7 +21,7 @@ def get_dict_of_chws(chc_name: str) -> list:
         FileNotFoundError: If the 'org_hierarchy.csv' file is not found.
         ValueError: If the provided CHC name is not valid in DHIS2.
     """
-    file_path = './Data/org_hierarchy.csv'
+    file_path = rf'{os.getcwd().replace('\test','')}\Data\org_hierarchy.csv'
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File '{file_path}' not found.")
 
@@ -186,7 +186,7 @@ class Chc:
         Returns:
             str: The HTML string containing the CHC summary.
         """
-        with open("./Form_Templates/Front_Page.html", "r") as f:
+        with open(f'{os.getcwd().replace('\test','')}\Form_Templates\Front_Page.html', "r") as f:
             soup = BeautifulSoup(f, "lxml")
 
         soup = self.gen_chc_rr_plot(soup)

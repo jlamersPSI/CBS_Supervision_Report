@@ -12,8 +12,16 @@ class ValidationCheck:
         self.validation_check_two(data)
 
     def validation_check_one(self, data):
+        validation_columns = {}
+
         for column in data.columns:
-            self.validation_check_result_colors_df[f"{column}_Validation_Check"] = ['red' if val else 'green' for val in data[column].isnull()]
+            validation_columns[f"{column}_Validation_Check"] = ['red' if val else 'green' for val in data[column].isnull()]
+
+        # Create a new DataFrame with all validation columns
+        validation_df = pd.DataFrame(validation_columns)
+
+        # Concatenate the validation DataFrame with your original DataFrame (if needed)
+        self.validation_check_result_colors_df = pd.concat([data, validation_df], axis=1)
 
     def validation_check_two(self, data):
         act_lt_24hrs = (
@@ -51,8 +59,8 @@ class ValidationCheck:
             ]
 
             for column in column_to_change_color:
-                if self.validation_check_result_colors_df[f"{column}_Validation_Check"][self.validation_check_result_colors_df.index[-1]] == "green":
-                    self.validation_check_result_colors_df[f"{column}_Validation_Check"][self.validation_check_result_colors_df.index[-1]] = "yellow"
+                if self.validation_check_result_colors_df.loc[self.validation_check_result_colors_df.index[-1],f"{column}_Validation_Check"] == "green":
+                    self.validation_check_result_colors_df.loc[self.validation_check_result_colors_df.index[-1],f"{column}_Validation_Check"] = "yellow"
 
     def get_val_check_result_colors_df(self):
         return self.validation_check_result_colors_df

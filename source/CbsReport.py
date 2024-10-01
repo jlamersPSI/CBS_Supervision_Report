@@ -2,7 +2,7 @@ import Chc  # Import the Chc class from the Chc module
 import pdfkit
 import io
 
-from PyPDF2 import PdfMerger,  PdfWriter , PdfReader
+from PyPDF2 import PdfWriter , PdfReader
 
 class CbsReport:
     """

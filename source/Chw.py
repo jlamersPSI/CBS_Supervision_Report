@@ -1,6 +1,7 @@
 import pandas as pd  # Import the Pandas library for data manipulation
 import json  # Import the JSON library for working with JSON data
-import ValidationCheck
+import source.ValidationCheck as ValidationCheck
+import os
 
 from bs4 import BeautifulSoup  # Import the Beautiful Soup library for HTML parsing
 
@@ -22,7 +23,7 @@ class Chw:
         self.chw_id = chw_id  # Store the CHW ID
 
         # Load the CBS data from the JSON file
-        with open('./Data/clean_CBS_data.json', 'r') as f:
+        with open(rf'{os.getcwd().replace('\test','')}\Data\clean_CBS_data.json', 'r') as f:
             cbs_data_all_chws = json.load(f)
 
         # Check if the CHW's organization unit is valid
@@ -44,7 +45,7 @@ class Chw:
         """
 
         # Load the HTML template for the CHW page
-        with open("./Form_Templates/CHW_PAGE_TEMPLATE.html", "r") as f:
+        with open(rf'{os.getcwd().replace('\test','')}\Form_Templates\CHW_PAGE_TEMPLATE.html', "r") as f:
             soup = BeautifulSoup(f, "lxml")
 
         # Iterate over the CHW's data and update the corresponding elements in the HTML
