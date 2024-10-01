@@ -18,6 +18,10 @@ Data is first scraped from DHIS2 using the dhis2.py package.[^6] CHW-level data 
 
 Reports are then compiled locally in Python visualized in figure 1. A front page displaying clinic summaries of HF04 data and CHW performance is generated based on the CHC name (Fig 2.). Each CHW then has a page displaying the results of data validation tests run on their monthly HF04 data (Fig 3.).
 
+Current validation checks include
+- None value submitted
+- $\sum ACT < 24hrs + \sum ACT > 24hrs + HTR Positive Referral == \sum Fever case (suspected malaria)$
+
 ### Figure 2: CHC Summary Page
 
 ![Figure 2](./Resources/Front_Page.jpg "Figure 2: CHC Summary Page")
@@ -34,14 +38,22 @@ After reports are generated as PDFs, they are delivered to PSs via WhatsApp mess
 - Generate report with monthly indicators
 - Create clinic summary front page
 
-### v0.4 (In Progress)
+### v0.4 (Complete)
 - Run validation checks and display results on CHW monthly summary
 - Complete README
 
 ### v0.5 (Planned)
 - Create basic WhatsApp delivery system
 - Add data download and update script
-- Add tests for validation checks and data download
+- Add tests for validation checks, data download, chw, chc, cbs report
+- Improve number of validation checks
+
+### v0.6 (Planned)
+- Add improved CHW page with personalized feedback
+  - Graphs comparing CHW with average in district, best in district for as defined in[^5]
+    - Quantity of care - number of homes visited per month
+    - Timeliness - number of children treated with 24 hours
+    - Quality - TBD
 
 ## References
 
