@@ -24,24 +24,26 @@ class ValidationCheck:
         self.validation_check_result_colors_df = pd.concat([data, validation_df], axis=1)
 
     def validation_check_two(self, data):
+        #data = data.fillna(0)
+
         act_lt_24hrs = (
-            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_2-59_m"].fillna(0)[data.index[-1]] +
-            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_5-14_yrs"].fillna(0)[data.index[-1]] +
-            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_15+_years"].fillna(0)[data.index[-1]]
+            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_2-59_m"].astype(float).fillna(0)[data.index[-1]] +
+            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_5-14_yrs"].astype(float).fillna(0)[data.index[-1]] +
+            data["Malaria_treated_with_ACT_in_HTR_<_24hrs_15+_years"].astype(float).fillna(0)[data.index[-1]]
         )
 
         act_gt_24hrs = (
-                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_2-59_m"].fillna(0)[data.index[-1]] +
-                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_5-14_yrs"].fillna(0)[data.index[-1]] +
-                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_15+_years"].fillna(0)[data.index[-1]]
+                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_2-59_m"].astype(float).fillna(0)[data.index[-1]] +
+                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_5-14_yrs"].astype(float).fillna(0)[data.index[-1]] +
+                data["Malaria_treated_with_ACT_in_HTR_>_24hrs_15+_years"].astype(float).fillna(0)[data.index[-1]]
         )
 
-        pos_ref = data["Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_Referred"].fillna(0)[data.index[-1]]
+        pos_ref = data["Fever_case_tested_for_malaria_(RDT)_in_HTR_Positive_Referred"].astype(float).fillna(0)[data.index[-1]]
 
         pos_total = (
-                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_2-59_m"].fillna(0)[data.index[-1]] +
-                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_5-14_yrs"].fillna(0)[data.index[-1]] +
-                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_15+_years"].fillna(0)[data.index[-1]]
+                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_2-59_m"].astype(float).fillna(0)[data.index[-1]] +
+                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_5-14_yrs"].astype(float).fillna(0)[data.index[-1]] +
+                data["Fever_case_(suspected_malaria)_in_HTR_&_ETR_15+_years"].astype(float).fillna(0)[data.index[-1]]
         )
 
         if not (act_lt_24hrs + act_gt_24hrs + pos_ref) == pos_total:

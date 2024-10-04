@@ -1,9 +1,56 @@
 import pandas as pd  # Import the Pandas library for data manipulation
 import json  # Import the JSON library for working with JSON data
-import source.ValidationCheck as ValidationCheck
+import ValidationCheck as ValidationCheck
 import os
+import numpy as np
 
 from bs4 import BeautifulSoup  # Import the Beautiful Soup library for HTML parsing
+from collections import defaultdict
+
+with open(rf'{os.getcwd().replace('\test','')}\Data\HF04_indicators.json', 'r') as file:
+    HF04_indicators = json.load(file)
+
+with open(rf'{os.getcwd().replace('\test','')}\Data\org_unit_name_to_dhis2_code.json', 'r') as file:
+    org_unit_name_to_dhis2_code = json.load(file)
+
+def parse_data(data_array):
+    parsed_data = defaultdict(dict)
+    for item in data_array:
+        column_name = list(HF04_indicators.keys())[list(HF04_indicators.values()).index(item[0])]
+        index = item[1] # Using the third item as index
+        if item[3].isdigit():
+            value = float(item[3])
+        else:
+            value = item[3]
+        parsed_data[index][column_name] = value
+    return parsed_data
+
+def create_dataframe(parsed_data):
+    df = pd.DataFrame.from_dict(parsed_data, orient='index')
+
+    empty_columns_to_add = []
+
+    for indicator in HF04_indicators.keys():
+        if indicator not in df.columns:
+            empty_columns_to_add.append(indicator)
+
+    empty_columns_df = pd.DataFrame(columns=empty_columns_to_add,index=df.index)
+
+    df = pd.concat([df,empty_columns_df],axis=1)
+
+    return df
+
+def decode_org_hierarchy(org_hierarchy_str):
+    org_hierarchy_codes = org_hierarchy_str.split('/')
+    org_hierarchy_names = []
+
+    for org_code in org_hierarchy_codes:
+        for org_unit in org_unit_name_to_dhis2_code["organisationUnits"]:
+            if org_unit["id"] == org_code:
+                org_hierarchy_names.append(org_unit["displayName"])
+
+    return org_hierarchy_names
+
 
 class Chw:
     """
@@ -23,7 +70,7 @@ class Chw:
         self.chw_id = chw_id  # Store the CHW ID
 
         # Load the CBS data from the JSON file
-        with open(rf'{os.getcwd().replace('\test','')}\Data\clean_CBS_data.json', 'r') as f:
+        with open(rf'{os.getcwd().replace('\test','')}\Data\chw_data.json', 'r') as f:
             cbs_data_all_chws = json.load(f)
 
         # Check if the CHW's organization unit is valid
@@ -31,7 +78,19 @@ class Chw:
             raise ValueError(f"CHW {self.organisation_unit} is not a valid CHW org unit in DHIS2.")
 
         # Load the CHW's data into a Pandas DataFrame
-        self.chw_data = pd.DataFrame(cbs_data_all_chws[self.organisation_unit]["data"])
+        self.chw_data = create_dataframe(parse_data(cbs_data_all_chws[self.organisation_unit]["rows"]))
+
+        self.chw_data[[
+            "National",
+            "District",
+            "Council",
+            "Chiefdom",
+            "Clinic",
+            "CHW"
+        ]] = decode_org_hierarchy(f"{cbs_data_all_chws[self.organisation_unit]["metaData"]["ouHierarchy"][self.organisation_unit]}/{self.organisation_unit}")
+
+        self.chw_data.index = pd.to_datetime(self.chw_data.index, format="%Y%m")
+        self.chw_data.sort_index(inplace=True)
 
         self.validation_check = ValidationCheck.ValidationCheck(self.chw_data)
 
@@ -65,25 +124,8 @@ class Chw:
         # Return the HTML content as a string
         return str(soup)
 
-    def get_expected_reports(self):
-        df = pd.DataFrame(self.chw_data["EXPECTED_REPORTS"])
-        df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
-        return df
-
-    def get_actual_reports(self):
-        df = pd.DataFrame(self.chw_data["ACTUAL_REPORTS"])
-        df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
-        return df
-
-    def get_actual_reports_on_time(self):
-        df = pd.DataFrame(self.chw_data["ACTUAL_REPORTS_ON_TIME"])
-        df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
-        return df
-
     def get_indicator(self, indicator):
-        df = pd.DataFrame(self.chw_data[indicator])
-        df.index = pd.to_datetime(self.chw_data["index"], format="%Y%m")
-        return df
+        return self.chw_data[indicator]
 
     def get_val_check(self):
         return self.validation_check.get_val_check_one()

@@ -1,3 +1,4 @@
+import json
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,7 +6,17 @@ import numpy as np
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 
+from pandas.core.methods.to_dict import to_dict
+
 import Chw  # Assuming this is a custom module
+
+def find_chc_index(org_units, chc_name):
+    return next((index for index, org_unit in enumerate(org_units["organisationUnits"])
+                 if chc_name in org_unit["displayName"]), -1)
+
+def find_chw_index(org_units, chw_code):
+    return next((index for index, org_unit in enumerate(org_units["organisationUnits"])
+                 if chw_code in org_unit["id"]), -1)
 
 def get_dict_of_chws(chc_name: str) -> list:
     """
@@ -21,16 +32,31 @@ def get_dict_of_chws(chc_name: str) -> list:
         FileNotFoundError: If the 'org_hierarchy.csv' file is not found.
         ValueError: If the provided CHC name is not valid in DHIS2.
     """
-    file_path = rf'{os.getcwd().replace('\test','')}\Data\org_hierarchy.csv'
+    file_path = rf'{os.getcwd().replace('\test','')}\Data\org_unit_name_to_dhis2_code.json'
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File '{file_path}' not found.")
 
-    org_hierarchy = pd.read_csv(file_path)
+    with open(file_path,'r') as file:
+        org_units = json.load(file)
 
-    if not any(chc_name in clinic_name for clinic_name in org_hierarchy["Clinic"]):
+    with open(os.path.join(os.path.join(os.getcwd().replace(r'\source',''), 'Data'),'chw_data.json'),'r') as file:
+        chw_data = json.load(file)
+
+    if not any(chc_name in org_unit["displayName"] for org_unit in org_units["organisationUnits"]):
         raise ValueError(f"{chc_name} is not a valid clinic name in DHIS2.")
+    else:
+        chc_index = find_chc_index(org_units,chc_name)
 
-    return org_hierarchy.loc[org_hierarchy["Clinic"] == chc_name, ["Organisation unit", "CHW"]].to_dict('records')
+    chw_code_list = []
+
+    for chw in chw_data:
+        if chw_data[chw]["metaData"]["ouHierarchy"][chw].split('/')[-1] == org_units["organisationUnits"][chc_index]["id"]:
+            chw_code_list.append(org_units["organisationUnits"][find_chw_index(org_units,chw)])
+
+    print(chw_code_list)
+
+    return chw_code_list
+    #return org_hierarchy.loc[org_hierarchy["Clinic"] == chc_name, ["Organisation unit", "CHW"]].to_dict('records')
 
 class Chc:
     """Represents a CHC (Community Health Center) with associated CHW information."""
@@ -44,7 +70,7 @@ class Chc:
         """
         self.chc_name = chc_name
         self.chw_names = get_dict_of_chws(self.chc_name)
-        self.chw_list = [Chw.Chw(chw_name["Organisation unit"], chw_name["CHW"]) for chw_name in self.chw_names]
+        self.chw_list = [Chw.Chw(chw_name["id"], chw_name["displayName"]) for chw_name in self.chw_names]
 
     def gen_chc_rr_plot(self, soup):
         """
@@ -70,9 +96,12 @@ class Chc:
 
         # Aggregate data from all CHWs
         for chw in self.chw_list:
-            rr_df["Actual_Reports"] += chw.get_actual_reports()["ACTUAL_REPORTS"]
-            rr_df["Actual_Reports_On_Time"] += chw.get_actual_reports_on_time()["ACTUAL_REPORTS_ON_TIME"]
-            rr_df["Expected_Reports"] += chw.get_expected_reports()["EXPECTED_REPORTS"]
+            print(rr_df["Actual_Reports"])
+            print(chw.get_indicator("ACTUAL_REPORTS"))
+
+            rr_df["Actual_Reports"] += chw.get_indicator("ACTUAL_REPORTS")
+            rr_df["Actual_Reports_On_Time"] += chw.get_indicator("ACTUAL_REPORTS_ON_TIME")
+            rr_df["Expected_Reports"] += chw.get_indicator("EXPECTED_REPORTS")
 
         # Calculate reporting rates
         rr_df["Reporting_Rate"] = (rr_df["Actual_Reports"] / rr_df["Expected_Reports"]) * 100
@@ -110,13 +139,13 @@ class Chc:
 
         element = soup.find('div',id='District')
         if element:
-            element.string = self.chw_list[0].get_indicator('District')['District'].unique()[0]
+            element.string = self.chw_list[0].get_indicator('District').unique()[0]
         else:
             print('Element for District not found in gen_excutive_summary()')
 
         element = soup.find('div', id='Chiefdom')
         if element:
-            element.string = self.chw_list[0].get_indicator('Chiefdom')['Chiefdom'].unique()[0]
+            element.string = self.chw_list[0].get_indicator('Chiefdom').unique()[0]
         else:
             print('Element for Chiefdom not found in gen_excutive_summary()')
 
@@ -138,7 +167,7 @@ class Chc:
 
             for chw in self.chw_list:
                 HH_df = chw.get_indicator('Total_HH_in_CHW_area')
-                HH_list.append(HH_df.loc[HH_df.index[-1],'Total_HH_in_CHW_area'])
+                HH_list.append(HH_df[HH_df.index[-1]])
 
             HH_list = np.array(HH_list)
 
@@ -159,7 +188,7 @@ class Chc:
                     indicator_df = chw.get_indicator(column)
 
                     if not indicator_df.empty:
-                        row.append(indicator_df.iloc[-1][column])
+                        row.append(indicator_df[-1])
 
                     else:
                         row.append(None)
@@ -186,7 +215,7 @@ class Chc:
         Returns:
             str: The HTML string containing the CHC summary.
         """
-        with open(f'{os.getcwd().replace('\test','')}\Form_Templates\Front_Page.html', "r") as f:
+        with open(rf'{os.getcwd().replace('\test','')}\Form_Templates\Front_Page.html', "r") as f:
             soup = BeautifulSoup(f, "lxml")
 
         soup = self.gen_chc_rr_plot(soup)
